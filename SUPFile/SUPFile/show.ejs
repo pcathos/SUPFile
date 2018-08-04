@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>SharePage</title>
+    <style type="text/css">
+      .outSide{margin-top: 15px;border-bottom: 1px solid #ccc;margin-bottom: 10px;}
+    </style>
+
+    <!-- Bootstrap -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body background="./image/share.jpg"">
+  <div class="container outSide" >
+                 <!--在这里分成视图上两个按钮 问题在toggle上-->
+                
+        <form class="form-inline">
+            <p style="color: white;" class="backNode hellotext"><img src="./image/logo.png" alt="logo"><strong>Hello,&nbsp;someone shared a file with you.</strong><span></span>
+        </form>
+
+        <br>
+</div>
+<div style="background:url(./image/bac.png) 0 0 repeat;">
+    <div class='container outSide'>
+      <div class='row'>
+        <div class='col-md-5' >
+          <h3 style="margin-top: 7px">Provided By  :  <span><%= allData[0].fileOwner %></span></h3>
+        </div>
+      </div>
+    </div>
+    <div class="container outNode">
+      <table class='table text-center table-hover'>
+        <thead>
+           <tr>
+            <td>No.</td>
+            <td>Uploader</td>
+            <td>FileName</td>
+            <td>Size</td>
+            <td>UploadTime</td>
+            <td>View</td>
+            <td>Download</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0;i < allData.length;i++){ %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= allData[i].fileOwner %></td>
+              <td><%= allData[i].fileName %></td>
+              <td><%= (allData[i].size/1024/1024).toFixed(2)+'MB' %></td>
+              <td><%= allData[i].lastTime %></td>
+              <td><input type='button' value='View' class='btn btn-default btn-warning btn-xs btn-viewNode' data-toggle='modal' data-target='.fileView' data-type="<%=allData[i].typeis %>"></td>
+              <td><a class="btn btn-default btn-success btn-xs btn-downloadNode" role="button" href="allFiles/<%=allData[i].hashName %>" download="<%=allData[i].fileName %>" hashName="<%=allData[i].hashName %>" Uploader="${fileOwner}">Download</a></td>
+            </tr>
+          <%}%>
+          
+        </tbody>
+
+      </table>
+    </div>
+</div>
+    
+
+    <div class="modal fade fileView" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">File View</h4>
+          </div>
+          <div class="addViewHere">
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+
+    <script src="./js/jq.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="js/config_host.js"></script>
+    <script type="text/javascript">
+      let hostandport = host+':'+appport;
+    </script>
+    <script type="text/javascript">
+    <%  %>
+    (()=>{
+
+        let index = 1;
+        function toTr(index,Uploader,fileName,size,uploadTime,downloadTime,hashName,typeis){
+          var oTr = document.createElement('tr');
+        //  $(oTr).attr('hash',hash);
+          oTr.innerHTML = `
+            <td>${index}</td>
+            <td>${Uploader}</td>
+            <td>${fileName}</td>
+            <td>${size}</td>
+            <td>${uploadTime}</td>
+             
+            <td><input type='button' class='btn btn-default btn-warning btn-xs btn-viewNode' value='view' data-toggle="modal" data-target=".fileView" data-type="${typeis}">
+            </td>
+            <td><a href="./allFiles/${hashName}" download="${fileName}" type='button' role='button' class='btn btn-default btn-success btn-xs btn-downloadNode' hashName="${hashName}">download</a></td>
+             `;
+          return oTr;
+        };
+
+        $.ajax({
+                'url':hostandport+'/share/sharefile',
+                'type':'get',
+                'success':function(data){
+                    //alert("lkdsngjofb");
+                    for (var i = 0; i<data.data.length; i++) {
+                        $('.outNode tbody')[0].appendChild(toTr(index,data.data[i].fileOwner,data.data[i].fileName,(data.data[i].size/1024/1024).toFixed(2)+'MB',data.data[i].lastTime,data.data[i].hashName,data.data[i].typeis));
+                        index++;
+
+
+                    }
+                    console.log(data.data);
+
+                }
+            })
+        })();
+    $('body').on({
+        click(){
+            $('.addViewHere')[0].innerHTML = '';
+
+            var viewPic = /\.gif|\.png|\.jpg|\.jpeg|\.JPG|\.JPEG|\.GIF|\.PNG$/;
+            var viewText = /\.txt|\.TXT$/;
+            var viewEmpty = '';
+            var viewmp3 = /\.mp3|\.wav|\.MP3|\.WAV$/;
+            var viewmp4 = /\.mp4|\.MP4$/;
+            var viewpdf = /\.pdf|\.PDF$/;
+            var viewdocx = /\.docx|\.DOCX$/;
+
+            if (viewPic.test($(this).attr('data-type'))) {
+                var img = document.createElement("img");
+                img.className = 'img-thumbnail';
+                img.style.cssText='max-width:100%;max-height:100%';
+
+                img.src = this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                img.onload = function(){
+                    $('.addViewHere')[0].appendChild(img);
+                };
+            }
+            
+            else if (viewText.test($(this).attr('data-type'))) {
+                $.ajax({ url: this.parentNode.parentNode.querySelector('.btn-downloadNode').href })
+                .done(data => {
+                $('.addViewHere').text(data); 
+              });
+            }
+            
+            else if (viewEmpty == $(this).attr('data-type')) {
+                $.ajax({ url: this.parentNode.parentNode.querySelector('.btn-downloadNode').href })
+                .done(data => {
+                $('.addViewHere').text(data);
+              });
+            }
+            
+            else if (viewmp3.test($(this).attr('data-type'))) {
+                
+                audiosrc=this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                $('.addViewHere')[0].innerHTML = `<audio controls>
+                    <source src="${audiosrc}" type="audio/mpeg">
+                    </audio>`;           
+            }
+            
+            else if (viewmp4.test($(this).attr('data-type'))) {
+            
+                videosrc=this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                $('.addViewHere')[0].innerHTML = `<button class="clickplayBtn" type="button">Play Video</button>
+                    <button class="clickpauseBtn" type="button">Pause Video</button><br> 
+
+                    <video id="myVideo" width="320" height="176">
+                      <source src="${videosrc}" type="video/mp4">
+                    </video> `;
+                $('body').on({click:function(){myVideo.play()}},'.clickplayBtn');
+                $('body').on({click:function(){myVideo.pause()}},'.clickpauseBtn');                
+            }
+
+            else if (viewpdf.test($(this).attr('data-type'))) {
+            
+                pdfsrc=this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                $('.addViewHere')[0].innerHTML = `<object data="${pdfsrc}" type="application/pdf" width="100%" height="650">
+                </object>`;
+                               
+            }
+
+            
+            else if (viewdocx.test($(this).attr('data-type'))) {
+                var _this = this;
+                docxhash=$(_this.parentNode.parentNode.querySelector('.btn-downloadNode')).attr('hashName');
+                
+                $.ajax({
+                    url:hostandport+'/login/docx2html',
+                    type:'get',
+                    data:{
+                        docxhash:docxhash
+                    },
+                    success:function(data){
+                        if (data.ok==1) {
+                            $('.addViewHere')[0].innerHTML = data.convertResult;
+                        }
+                    }
+                })         
+            } 
+
+            else{
+                $('.addViewHere')[0].innerHTML = `<h2>Seems unsupport view this file</h2>`
+            }
+        }
+    },'.btn-viewNode');
+
+    </script>
+  </body>
+</html>

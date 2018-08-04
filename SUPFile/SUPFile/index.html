@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>SUPFile</title>
+    <style type="text/css">
+        .outSide{margin-top: 15px;}
+        .progress{width: 50%;}
+        .btn-used_memory{ margin-right: 40%;}
+    </style>
+
+    <style type="text/css" >
+    @import url(https://fonts.googleapis.com/css?family=Lato:900);
+        *, *:before, *:after{
+        box-sizing:border-box;
+    }
+    <style type="text/css">
+        /*.outSide{margin-top: 15px;}*/
+    </style>
+
+    <!-- Bootstrap -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+    body,td,th {
+    font-size: 14px;
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="./css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="./css/htmleaf-demo.css">
+    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/horizontal.css"/>
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body id="mybody" class="center-block mybody" background="./image/4.jpg"> 
+    <div class="wrap welcomeNode">
+            <header>   <!-- header contains our navigation elements -->
+              <label for="slide-1-trigger">SUPFile</label>   <!-- slide-1-trigger -is the id name of our first radio button-->
+              <label for="slide-2-trigger">Features</label>
+              <label for="slide-3-trigger">Our Team</label>
+              <label for="slide-4-trigger">Contact Us</label>      
+              <input type="button"  class="btn btn-primary btn-myBtn btn-indexlogin" value="Log In" data-toggle="modal" data-target="#myModal">
+              <input type="button"  class="btn btn-primary btn-myBtn btn-keeplogin hide" value="Log In">
+                <input type="button"  class="btn btn-success btn-myBtn btn-oBtn btn-indexres" value="Sign Up" data-toggle="modal" data-target="#myModal_regist">      
+            </header>
+            
+            <input id="slide-1-trigger" type="radio" name="slides" checked>  <!-- this is our radio slider section combinations here -->
+            <section class="slide slide-one">
+              <h1>SUPFile
+              <p class="p"><br>Store everything you want<br>Share with your friends<br>Safe and convenient</p>
+              </h1>
+              <div class="htmleaf-header"></div>
+            </section>
+          
+            <input id="slide-2-trigger" type="radio" name="slides"> 
+            <section class="slide slide-two">
+                <h1>Features
+                <br>
+                <br>
+                <div id="divcss5">
+                <div id="imglist">
+                <img src="./image/cloud.png">
+                <img src="./image/contact.png">
+                <img src="./image/down.png">
+                <img src="./image/up.png"></div></div>
+                <p class="pId">&nbsp;store&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;share&nbsp;&nbsp;&nbsp;&nbsp;download&nbsp;&nbsp;&nbsp;upload</p>
+                </h1>           
+                
+            </section>
+          
+            <input id="slide-3-trigger" type="radio" name="slides">
+            <section class="slide slide-three">
+              <h1>Our Team<br><br>
+              <div id="divcss5"><div id="imglist">
+                <img src="./image/spc.png" />
+                <img src="./image/hx.jpg"/>
+                <img src="./image/gyx.jpg" />
+                <img src="./image/cxy.JPG"/>
+                </div>
+              </div> </h1>
+            </section>
+          
+            <input id="slide-4-trigger" type="radio" name="slides">
+            <section class="slide slide-four">
+                <div class="container outSide">
+                    <h1 class="welcomeNode">Contact Us
+                    <p class="p"><br>Feel free to contact us<br>E-mail:<br><a href="mailto:Help@supfile.store">Help@supfile.store</a></p>
+                    </h1>
+                    
+                </div>
+            </section>   
+      </div>
+    <!-- 注册按钮,登陆后隐藏,显示为欢迎 -->
+    <div class="container outSide">
+                 <!--在这里分成视图上两个按钮 问题在toggle上-->
+                
+        <form class="form-inline">
+            <p style="color: white;" class="backNode hide hellotext"><img src="./image/logo.png" alt="logo"><strong>Welcome,&nbsp;</strong><span></span>
+                <input type="button" class="btn btn-info hide backNode btn-sm pull-right" value="Log Out" onclick="localStorage.clear();alert('Bye');location.reload()">
+                <input type="button" class="btn-changeBackground btn btn-info btn-sm pull-right" value="Don't Click">
+                
+                <a href="./allFiles/supfile-1.0.0.apk" download="supfile-1.0.0.apk" type='button' role='button' class='btn btn-default btn-success btn-xs'>Android</a>
+
+
+            </p>
+        </form>
+        <div>
+        <input type="button" class="btn btn-success btn-used_memory hide" value="0">
+        <input type="button" class="btn btn-danger btn-max_memory hide" value="32212254720">
+    </div>
+   <!-- 进度条-->
+    <div class="progress hide" id="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:30%">
+        </div>  
+    </div>
+        <br>
+</div>
+
+    <!-- 文件列表,登陆后显示 -->
+    <div class="container fileShowNode hide" style="background:url(./image/bac.png) 0 0 repeat;">
+        <!-- Table -->
+        <div style="overflow-y: auto;height: 360px;">
+        <table class="table text-center table-hover table1">
+            <thead>
+                <tr align="center" valign="middle">
+                    <td><h4><strong>No.</strong></h4></td>
+                    <td><h4><strong>FileName</strong></h4></td>
+                    <td><h4><strong>Size</strong></h4></td>
+                    <td><h4><strong>UploadTime</strong></h4></td>
+                    <td><h4><strong>Downloads</strong></h4></td>
+                    <td><h4><strong>View</strong></h4></td>
+                    <td><h4><strong>Download</strong></h4></td>
+                    <td><h4><strong>More</strong></h4></td>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table></div>
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="file" name="" class="fsNode">
+            </div>
+            <div class="form-group">
+                <input type="button" name="" class="btn btn-primary btn-xs btn-uploadfile" value="Upload File">
+            </div>
+        </form>
+    </div>
+
+    <br>
+    
+
+
+
+
+
+    <!-- loginModal -->
+    <div class="modal fade loginView" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Log In</h4>
+          </div>
+          <div class="modal-body">
+            <form class="myform">
+                <div class="form-group loginform">
+                    <label>UserName:</label>
+                    <input type="" name="" class="form-control userNode"   pattern="regexp" placeholder="Username/Mailbox" required/>
+                </div>
+                <div class="form-group loginform">
+                    <label>Password:</label>
+                    <input type="password" name="" class="form-control passNode"  pattern="regexp" placeholder="Your Password">
+                </div>
+                <!--这是默认的内存 32212254720
+                <input type="hidden" name="" value="0" class ="used_memoryNode">
+                <input type="hidden" name="" value="32212254720" class ="max_memoryNode"> 
+                <input type="button" name="" value="Log In" class="btn btn-success btn-login">
+                <input type="button" name="" value="Sign Up" class="btn btn-primary btn-res">
+                 -->
+                <input type="button" name="" value="Log In" class="btn btn-success btn-login">
+                <input type="reset" name="" value="Reset" class="btn btn-primary">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+     <!--先放在这-->
+    <input type="hidden" name="" value="0" class ="used_memoryNode">
+    <input type="hidden" name="" value="32212254720" class ="max_memoryNode"> 
+
+    <!-- registModal-->
+    <div class="modal fade registView" id="myModal_regist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal1-title" id="myModalLabel">Sign Up </h4>
+              </div>
+              <div class="modal-body">
+                <form class="myform" name="regist" method="post">
+                    <div class="form-group">
+                        <label>UserName:</label>
+                        <input type="" name="" class="form-control userNode_regist"   pattern="regexp" placeholder="User name must begin with a letter"  required/>
+                    </div>
+                     <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" name="" class="form-control mailNode"   pattern="regexp" placeholder="Enter a valid mailbox"  required/>
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="password" name="" class="form-control passNode_regist"  pattern="regexp" placeholder="Password required 6-8 digits, at least one number or letter"> 
+                    </div>
+                     <div class="form-group">
+                        <label>Password Confirm:</label>
+                        <input type="password" name="" class="form-control passNode_confirm"  pattern="regexp" placeholder="Enter the password again"> 
+                    </div>
+                    <input type="button" name="" value="Sign Up" class="btn btn-success btn-res">
+                    <input type="reset" name="" value="Reset" class="btn btn-primary">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <!-- renameModel -->
+    <div class="modal fade renameView" id="changename" tabindex="-1" role="dialog" aria-labelledby="changenameLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Rename</h4>
+          </div>
+          <div class="modal-body">
+            <form class="myform">
+                <div class="form-group renameform">
+                    <label>New Name:</label>
+                    <input type="" name="" class="form-control renameNode" pattern="regexp" placeholder="Input your new name">
+                    <input id="hiddenText" type="text" style="display:none" />
+                </div>
+                <input type="button" name="" value="ok" class="btn btn-success btn-renameNode">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+         <!--shareNode-->
+    <div class="modal fade shareView" id="share" tabindex="-1" role="dialog" aria-labelledby="shareLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Share</h4>
+          </div>
+          <div class="modal-body">
+            <form class="myform">
+                <div class="form-group shareform">
+                    <label>You can share with this Link:</label>
+                    <div class="addShareHere"></div>
+                    
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- file overview -->
+    <div class="modal fade fileView" tabindex="-1" role="dialog" >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">File View</h4>
+          </div>
+          <div class="addViewHere">
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jq.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/config_host.js"></script>
+    <!-- Log In / Log Out -->
+    <script type="text/javascript">
+    
+    /// local storage
+    var hours = 0.1; // Reset when storage is more than 24hours
+    var now = new Date().getTime();
+    var setupTime = localStorage.getItem('setupTime');
+    if(now-setupTime > hours*60*60*1000) {
+        localStorage.clear()
+    }
+
+    let maxMemory = $('.max_memoryNode').val()
+    let hostandport = host+':'+appport
+    //alert(localStorage.getItem("setupTime"))
+    if (localStorage.getItem("currentUser") != null) {
+        $.ajax({
+                url:hostandport+'/login/login',
+                type:'get',
+                data:{
+                    'username':localStorage.getItem("currentUser"),
+                    'password':localStorage.getItem("currentPass")
+                },
+                success:function(data){
+                    if (data.ok==1) {
+                        //alert(data.msg)
+                        //$('.myform .form-group').removeClass('has-error');
+                        //toggle就是改变这个弹框的状态,显示或者隐藏
+                        $('.userNode').val(data.userData[0].username);
+                        
+                        $('.btn-myBtn').hide();
+                        $('.btn-oBtn').hide();
+                        $('.backNode').removeClass('hide');
+                        $('.progress').removeClass('hide');
+                        $('.backNode span').html($('.userNode').val());
+                        $('.fileShowNode').removeClass('hide');
+                        $('.welcomeNode').addClass('hide');
+                        $('.pNode').addClass('hide');
+                        $('.btn-used_memory').removeClass('hide');
+                        $('.btn-max_memory').removeClass('hide');
+                        // 循环添加文件
+
+                        for(var i=0;i < data.data.length;i++){
+                            $('.fileShowNode tbody')[0].appendChild(addToTr(index,data.data[i].fileName,(data.data[i].size/1024/1024).toFixed(2)+' MB',data.data[i].lastTime,data.data[i].downloadTime,data.data[i].hashName,data.data[i].typeis));
+                            index++;
+                        }
+                        $('.used_memoryNode').val(data.memorydata[0].used_memory);
+                        $('.max_memoryNode').val(data.memorydata[0].max_memory);
+                        $('.btn-used_memory').val((data.memorydata[0].used_memory/1024/1024/1024).toFixed(2)+'GB');
+                        $('.btn-max_memory').val((data.memorydata[0].max_memory/1024/1024/1024).toFixed(2)+'GB');
+                        
+                        //alert(data.userData[0].username);
+                        document.getElementById('progress').setAttribute('aria-valuenow','20');
+                        $('.progress-bar').css("width",data.memorydata[0].used_memory/data.memorydata[0].max_memory*100+'%');
+                        $('.progress-bar').text(data.memorydata[0].used_memory/data.memorydata[0].max_memory*100+'%');
+                        localStorage.setItem("currentUser", $('.userNode').val());
+
+                    }
+                    else{
+                        alert(data.msg);
+                        $('.myform .form-group').addClass('has-error');
+                    }
+                }
+            })
+    }
+    
+    //清除再次点击之后显示的text
+    let index = 1;
+    $('.btn-myBtn').on({
+        click(){
+
+            $('.myform .form-group').removeClass('has-error');
+            $('.userNode').val("");
+            $('.passNode').val("");
+        }
+    })
+
+    //加一个
+ $('.btn-oBtn').on({
+        click(){
+
+            $('.myform .form-group').removeClass('has-error');
+            $('.userNode_regist').val("");
+            $('.mailNode').val("");
+            $('.passNode_regist').val("");
+            $('.passNode_confirm').val("");
+        }
+    })
+    //press Enter
+    $('body').on({
+            click(){
+                document.getElementById('mybody').setAttribute('background','./image/'+parseInt(5*Math.random()+1)+'.jpg')
+            }
+        },'.btn-changeBackground');
+    //change Bacground
+
+    $(".userNode").keypress(function(e){
+        var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        if (eCode == 13){
+            $('.btn-login').click();
+            //自己写判断函数
+        }
+    })
+    $(".passNode").keypress(function(e){
+        var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        if (eCode == 13){
+            $('.btn-login').click();
+            //自己写判断函数
+        }
+    })
+    $(".renameNode").keypress(function(e){
+        var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        if (eCode == 13){
+            $('.btn-renameNode').click();
+            //自己写判断函数
+        }
+    })
+    $(".passNode_confirm").keypress(function(e){
+        var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        if (eCode == 13){
+            $('.btn-res').click();
+            //自己写判断函数
+        }
+    })
+    
+
+    function addToTr(index,fileName,size,uploadTime,downloadTime,hashName,typeis){
+        var oTr = document.createElement('tr');
+        $(oTr).attr('hashName',hashName);
+        $(oTr).attr('indexis',index);
+        oTr.innerHTML = `
+            <td>${index}</td>
+            <td class="fileName" id="fileName">${fileName}</td>
+            <td>${size}</td>
+            <td>${uploadTime}</td>
+            <td class="downloadTimer">${downloadTime}</td>
+            <td><input type='button' class='btn btn-default btn-warning btn-xs btn-viewNode' value='View' data-toggle="modal" data-target=".fileView" data-type="${typeis}"></td>
+
+            <td><a href="./allFiles/${hashName}" download="${fileName}" type='button' role='button' class='btn btn-default btn-success btn-xs btn-downloadNode' hashName="${hashName}">Download</a>
+                
+            </td>
+            
+            <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle btn-xs " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><input type='button' class='btn btn-default btn-xs btn-changeNode btn-block' data-type="${typeis}" value='Rename' data-toggle="modal" data-target="#changename"></li>
+                    <li><input type="button" class='btn btn-default btn-xs btn-shareNode btn-block' data-type="${typeis}" value='Share' data-toggle="modal" data-target="#share"></li>
+                    <li><input type='button' class='btn btn-default btn-danger btn-xs btn-deleteNode btn-block' value='Remove'></li>
+                  </ul>
+                </div>
+            </td>`;
+        return oTr;
+    }
+//file overview
+    $('body').on({
+        click(){
+            $('.addViewHere')[0].innerHTML = '';
+
+            var viewPic = /\.gif|\.png|\.jpg|\.jpeg|\.JPG|\.JPEG|\.GIF|\.PNG$/;
+            var viewText = /\.txt|\.TXT$/;
+            var viewEmpty = '';
+            var viewmp3 = /\.mp3|\.wav|\.MP3|\.WAV$/;
+            var viewmp4 = /\.mp4|\.MP4$/;
+            var viewpdf = /\.pdf|\.PDF$/;
+            var viewdocx = /\.docx|\.DOCX$/;
+
+            if (viewPic.test($(this).attr('data-type'))) {
+                var img = document.createElement("img");
+                img.className = 'img-thumbnail';
+                img.style.cssText='max-width:100%;max-height:100%';
+
+                img.src = this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                img.onload = function(){
+                    $('.addViewHere')[0].appendChild(img);
+                };
+            }
+            
+            else if (viewText.test($(this).attr('data-type'))) {
+                $.ajax({ url: this.parentNode.parentNode.querySelector('.btn-downloadNode').href })
+                .done(data => {
+                $('.addViewHere').text(data); 
+              });
+            }
+            
+            else if (viewEmpty == $(this).attr('data-type')) {
+                $.ajax({ url: this.parentNode.parentNode.querySelector('.btn-downloadNode').href })
+                .done(data => {
+                $('.addViewHere').text(data);
+              });
+            }
+            
+            else if (viewmp3.test($(this).attr('data-type'))) {
+                
+                audiosrc=this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                $('.addViewHere')[0].innerHTML = `<audio controls>
+                    <source src="${audiosrc}" type="audio/mpeg">
+                    </audio>`;           
+            }
+            
+            else if (viewmp4.test($(this).attr('data-type'))) {
+            
+                videosrc=this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                $('.addViewHere')[0].innerHTML = `<button class="clickplayBtn" type="button">Play Video</button>
+                    <button class="clickpauseBtn" type="button">Pause Video</button><br> 
+
+                    <video id="myVideo" width="320" height="176">
+                      <source src="${videosrc}" type="video/mp4">
+                    </video> `;
+                $('body').on({click:function(){myVideo.play()}},'.clickplayBtn');
+                $('body').on({click:function(){myVideo.pause()}},'.clickpauseBtn');                
+            }
+
+            else if (viewpdf.test($(this).attr('data-type'))) {
+            
+                pdfsrc=this.parentNode.parentNode.querySelector('.btn-downloadNode').href;
+                $('.addViewHere')[0].innerHTML = `<object data="${pdfsrc}" type="application/pdf" width="100%" height="650">
+                </object>`;
+                               
+            }
+
+            
+            else if (viewdocx.test($(this).attr('data-type'))) {
+                var _this = this;
+                docxhash=$(_this.parentNode.parentNode.querySelector('.btn-downloadNode')).attr('hashName');
+                
+                $.ajax({
+                    url:hostandport+'/login/docx2html',
+                    type:'get',
+                    data:{
+                        docxhash:docxhash
+                    },
+                    success:function(data){
+                        if (data.ok==1) {
+                            $('.addViewHere')[0].innerHTML = data.convertResult;
+                        }
+                    }
+                })         
+            }
+
+            else{
+                $('.addViewHere')[0].innerHTML = `<h2>It's seems that the file is unsupported to view </h2>`
+            }
+        }
+    },'.btn-viewNode');
+
+
+    //下载次数改变
+    $('body').on({
+        click(){
+            var _this = this;
+            $.ajax({
+                url:hostandport+'/login/addDownload',
+                type:'get',
+                data:{
+                    hashName:$(_this).attr('hashName'),
+                    username:$('.userNode').val()
+                },
+                success:function(data){
+                    if (data.ok==1) {
+                        alert(data.msg);
+                    }
+                }
+            })
+            var downloadTimerNode = this.parentNode.parentNode.querySelector('.downloadTimer');
+            downloadTimerNode.innerHTML = Number(downloadTimerNode.innerHTML) + 1;
+        }
+    },'.btn-downloadNode');
+
+    //delete file
+    //叫什么,,,,事件委托
+    $('body').on({
+        'click':function(){
+            var _this = this;
+            $.ajax({
+                url:hostandport+'/login/removeFile',
+                type:'get',
+                data:{
+                    username:$('.userNode').val(),
+                    hashName:$(_this.parentNode.parentNode.parentNode.parentNode.parentNode).attr('hashName')
+                },
+                success:function(data){
+                    if (data.ok==1) {
+                        alert(data.msg);
+                        _this.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
+                    }
+                    else{
+                        alert(data.msg);
+                    }
+                    $('.used_memoryNode').val(data.data);
+
+                    $('.btn-used_memory').val((data.data/1024/1024/1024).toFixed(2)+'GB');
+                    
+                    
+                    //alert(data.userData[0].username);
+
+                    document.getElementById('progress').setAttribute('aria-valuenow','20');
+
+                    $('.progress-bar').css("width",data.data/maxMemory*100+'%');
+                    $('.progress-bar').text(data.data/maxMemory*100+'%');
+                    
+                }
+            })
+            
+        }
+    },'.btn-deleteNode')
+
+///rename
+    $('body').on({
+        'click':function(){
+            var _this = this;
+
+            $.ajax({
+                url:hostandport+'/login/rename',
+                type:'get',
+                data:{
+                    username:$('.userNode').val(),
+                    hashName:window.hashName,
+                    newName:$('.renameNode').val()+window.typeis,
+                },
+                success:function(data){
+
+                    if (data.ok==1) {
+                        alert(data.msg);
+                    }
+                    else{
+                        alert(data.msg);
+                    }
+                    $('.renameView').modal('toggle');
+
+                    var x = document.getElementsByClassName("btn-downloadNode");
+                    
+                    x[window.indexis-1].setAttribute('download', $('.renameNode').val()+window.typeis) ;
+
+                }
+            })
+            //alert(window.fileName);
+            window.fileName.innerHTML = $('.renameNode').val()+window.typeis;
+            
+        }
+    },'.btn-renameNode')
+
+    $('body').on({
+            click(){
+                $('.renameNode').val('');
+                $('.myform .form-group').removeClass('has-error');
+                var _this = this;
+                window.hashName=$(_this.parentNode.parentNode.parentNode.parentNode.parentNode).attr('hashName');
+                window.indexis =  $(_this.parentNode.parentNode.parentNode.parentNode.parentNode).attr('indexis');
+                
+                window.fileName = _this.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.fileName');
+                
+                window.typeis = $(this).attr('data-type');
+                
+                //alert(window.fileName);
+            }
+    },'.btn-changeNode')
+
+
+    /*share*/
+     $('body').on({
+        'click':function(){
+            var _this = this;
+            var a=$(_this.parentNode.parentNode.parentNode.parentNode.parentNode).attr('hashName');
+            
+            var shareLink = hostandport+"/share.html?shareFile="+a;
+            
+            //alert(window.fileName.innerHTML);
+          $.ajax({
+                url:hostandport+'/share/sharefile',
+                type:'get',
+                data:{
+                    username:$('.userNode').val(),
+                    hashName:a,
+                },
+                success:function(data){
+                    $('.addShareHere')[0].innerHTML = shareLink;
+                    $('.shareView').modal('show');
+
+                }
+            })
+           
+            //alert(window.fileName);
+            //window.fileName.innerHTML = $('.shareNode').val()+window.typeis;
+            
+        }
+    },'.btn-shareNode')
+
+
+
+
+    //upload file
+    $('.btn-uploadfile').on({
+        'click':function(){
+            $(".btn-uploadfile").attr('disabled',true);
+            if($('.fsNode')[0].files[0] == null){alert('Please select a file');$(".btn-uploadfile").attr('disabled',false); return ;}
+            alert('Uploading...please wait');
+            var formNode = new FormData();
+            formNode.append('files',$('.fsNode')[0].files[0]);
+            formNode.append('fileOwner',$('.userNode').val());
+
+            if (($('.fsNode')[0].files[0].size) > (($('.max_memoryNode').val())-($('.used_memoryNode').val())) ) {
+                alert("Sorry. You cannot upoad over"+((($('.max_memoryNode').val())-($('.used_memoryNode').val()))/1024/1024).toFixed(2)+"MB");
+                $(".btn-uploadfile").attr('disabled',false); 
+            }
+            else{
+            var xhr = new XMLHttpRequest();
+            xhr.open('post',hostandport+'/login/uploadFiles',true);
+            xhr.send(formNode);
+            xhr.onload = function(data){
+                //console.log(xhr.responseText);
+                var json = eval('('+xhr.responseText+')');
+                if (json.ok == 1) {
+                    alert(json.msg);
+                    $('.fileShowNode tbody')[0].appendChild(addToTr(index,$('.fsNode')[0].files[0].name,($('.fsNode')[0].files[0].size/1024/1024).toFixed(2)+' MB',json.timer,0,json.hashName,json.typeis));
+                    index ++;
+                    //加
+                    $('.used_memoryNode').val(json.used_memory_last);
+                    $('.max_memoryNode').val(json.max_memory);
+
+                    $('.btn-used_memory').val((json.used_memory_last/1024/1024/1024).toFixed(2)+'GB');
+                    $('.btn-max_memory').val((json.max_memory/1024/1024/1024).toFixed(2)+'GB');
+                    
+                    //alert(data.userData[0].username);
+                    document.getElementById('progress').setAttribute('aria-valuenow','20');
+                    $('.progress-bar').css("width",json.used_memory_last/json.max_memory*100+'%');
+                    $('.progress-bar').text(json.used_memory_last/json.max_memory*100+'%');
+                    $(".btn-uploadfile").attr('disabled',false); 
+                    
+                }
+                else{
+                    alert(json.msg);
+                }
+                $('.fsNode').val('');
+
+            }
+        }
+        }
+    })
+
+    
+    //register
+   $('.btn-res').on({
+        click(){
+            //做一个用户名筛选    /^[0-9]+.?[0-9]*$ 判断字符串是否为数字
+            //pattern =/[A-z]{3,12}/; //3-12位字母组成
+            pattern1=/^[a-zA-Z]\w*$/;//用户名由字母开头，后字母、数字或下划线
+            pattern2=/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/;
+            var unode=$('.userNode_regist').val();
+            var panode=$('.passNode_regist').val();
+            var mail=$('.mailNode').val();
+            var panode1=$('.passNode_confirm').val();
+                if (!pattern1.test(unode)) {
+                    alert("Username starts with a letter, followed by a letter, a number, or an underscore")
+                }
+                else{
+                    if (mail.indexOf("@") == -1) {
+                        alert("Please enter the correct email address");
+                    }
+                    else{
+                         if (panode.length<6||panode.length>8) {
+                           alert("Password required 6-8 digits ");
+                        }
+                        else{
+                            if(!pattern2.test(panode)){
+                                alert("Password must be array and letter combination");
+                            }
+                            else{
+                                if(panode!=panode1){
+                                    alert("Inconsistent password input twice!");
+                                }  
+                                else{
+                                    $.ajax({
+                                        url:hostandport+'/login/res',
+                                        type:'get',
+                                        data:{
+                                            'username':$('.userNode_regist').val(),
+                                            'password':$('.passNode_regist').val(),
+                                            //新加的表内容---内存,邮箱//
+                                            'mailbox':$('.mailNode').val(),
+                                            'used_memory':$('.used_memoryNode').val(),
+                                            'max_memory':$('.max_memoryNode').val()
+                                        },
+                                        success:function(data){
+                                            if (data.ok==1) {
+                                                //?
+                                                $('.registView').modal('toggle');
+                                                //$('.btn-oBtn').hide();
+                                                alert(data.msg+" Please go to mailbox to active your account. If you don't receive any email, check if you block it")
+                                                $('.myform .form-group').removeClass('has-error');
+
+                                                //$('.modal').modal('toggle');
+                                            }
+                                            else{
+                                                alert(data.msg);
+                                                $('.myform .form-group').addClass('has-error');
+                                            }
+                                        }
+                                    })
+                                }
+                           }
+
+                        }
+                }
+       
+            }
+
+        }
+    })
+
+    //login 
+    $('.btn-login').on({
+        click(){
+            $.ajax({
+                url:hostandport+'/login/login',
+                type:'get',
+                data:{
+                    'username':$('.userNode').val(),
+                    'password':$('.passNode').val()
+                },
+                success:function(data){
+                    if (data.ok==1) {
+                        //alert(data.msg)
+                        //$('.myform .form-group').removeClass('has-error');
+                        //toggle就是改变这个弹框的状态,显示或者隐藏
+                        $('.userNode').val(data.userData[0].username);
+                        $('.loginView').modal('toggle');
+                        $('.btn-myBtn').hide();
+                        $('.btn-oBtn').hide();
+                        $('.backNode').removeClass('hide');
+                        $('.progress').removeClass('hide');
+                        $('.backNode span').html($('.userNode').val());
+                        $('.fileShowNode').removeClass('hide');
+                        $('.welcomeNode').addClass('hide');
+                        $('.pNode').addClass('hide');
+                        
+                        // 循环添加文件
+
+                        for(var i=0;i < data.data.length;i++){
+                            $('.fileShowNode tbody')[0].appendChild(addToTr(index,data.data[i].fileName,(data.data[i].size/1024/1024).toFixed(2)+' MB',data.data[i].lastTime,data.data[i].downloadTime,data.data[i].hashName,data.data[i].typeis));
+                            index++;
+                        }
+                        $('.used_memoryNode').val(data.memorydata[0].used_memory);
+                        $('.max_memoryNode').val(data.memorydata[0].max_memory);
+                        $('.btn-used_memory').val((data.memorydata[0].used_memory/1024/1024/1024).toFixed(2)+'GB');
+                        $('.btn-max_memory').val((data.memorydata[0].max_memory/1024/1024/1024).toFixed(2)+'GB');
+                        
+                        //alert(data.userData[0].username);
+                        document.getElementById('progress').setAttribute('aria-valuenow','20');
+                        $('.progress-bar').css("width",data.memorydata[0].used_memory/data.memorydata[0].max_memory*100+'%');
+                        $('.progress-bar').text(data.memorydata[0].used_memory/data.memorydata[0].max_memory*100+'%');
+                        localStorage.setItem("currentUser", $('.userNode').val());
+                        localStorage.setItem("currentPass", $('.passNode').val());
+                        var now = new Date().getTime();
+                        localStorage.setItem("setupTime",now);
+
+                    }
+                    else{
+                        alert(data.msg);
+                        $('.myform .form-group').addClass('has-error');
+                    }
+                }
+            })
+        }
+    })
+$('.btn-keeplogin').on({
+        click(){
+            $.ajax({
+                url:hostandport+'/login/login',
+                type:'get',
+                data:{
+                    'username':localStorage.getItem("currentUser"),
+                    'password':localStorage.getItem("currentPass")
+                },
+                success:function(data){
+                    if (data.ok==1) {
+                        //alert(data.msg)
+                        //$('.myform .form-group').removeClass('has-error');
+                        //toggle就是改变这个弹框的状态,显示或者隐藏
+                        $('.userNode').val(data.userData[0].username);
+                        $('.loginView').modal('toggle');
+                        $('.btn-myBtn').hide();
+                        $('.btn-oBtn').hide();
+                        $('.backNode').removeClass('hide');
+                        $('.progress').removeClass('hide');
+                        $('.backNode span').html($('.userNode').val());
+                        $('.fileShowNode').removeClass('hide');
+                        $('.welcomeNode').addClass('hide');
+                        $('.pNode').addClass('hide');
+                        $('.btn-used_memory').removeClass('hide');
+                        $('.btn-max_memory').removeClass('hide');
+                        // 循环添加文件
+
+                        for(var i=0;i < data.data.length;i++){
+                            $('.fileShowNode tbody')[0].appendChild(addToTr(index,data.data[i].fileName,(data.data[i].size/1024/1024).toFixed(2)+' MB',data.data[i].lastTime,data.data[i].downloadTime,data.data[i].hashName,data.data[i].typeis));
+                            index++;
+                        }
+                        $('.used_memoryNode').val(data.memorydata[0].used_memory);
+                        $('.max_memoryNode').val(data.memorydata[0].max_memory);
+                        $('.btn-used_memory').val((data.memorydata[0].used_memory/1024/1024/1024).toFixed(2)+'GB');
+                        $('.btn-max_memory').val((data.memorydata[0].max_memory/1024/1024/1024).toFixed(2)+'GB');
+                        
+                        //alert(data.userData[0].username);
+                        document.getElementById('progress').setAttribute('aria-valuenow','20');
+                        $('.progress-bar').css("width",data.memorydata[0].used_memory/data.memorydata[0].max_memory*100+'%');
+                        $('.progress-bar').text(data.memorydata[0].used_memory/data.memorydata[0].max_memory*100+'%');
+                        localStorage.setItem("currentUser", $('.userNode').val());
+
+                    }
+                    else{
+                        alert(data.msg);
+                        $('.myform .form-group').addClass('has-error');
+                    }
+                }
+            })
+        }
+    })
+
+
+
+    </script>
+
+  </body>
+</html>
