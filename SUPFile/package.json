@@ -4,6 +4,7 @@
   "description": "SUPFile for 4PJT group 210732",
   "main": "n.js",
   "dependencies": {
+  	"nodemailer-smtp-transport":"",
     "nodemailer":"",
     "mammoth": "^1.4.6",
     "accepts": "^1.3.5",
